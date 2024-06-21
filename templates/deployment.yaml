@@ -14,8 +14,10 @@ metadata:
     {{- . | nindent 4 }}
   {{- end}} 
 spec:
-  {{- if not .replicas.autoscalingEnabled }}
-  replicas: {{ .replicas.replicaCount | default 1 }}
+  {{- with (include "template.replicas" (.replicas | default dict)| fromYaml )}}
+  {{- if not .autoScalingEnabled }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
   {{- end }}
   selector:
     matchLabels:
@@ -52,12 +54,7 @@ spec:
             protocol: TCP
         {{- end }}
         resources:
-          limits:
-            cpu: {{ .resources.limits.cpu }}
-            memory: {{ .resources.limits.memory }}
-          requests:
-            cpu: {{ .resources.requests.cpu }}
-            memory: {{ .resources.requests.memory }} 
+          {{- include "template.resources" (.resources | default dict ) | nindent 10}}
         {{- if or $.Values.common.env .env }}
         env:
           {{- with $.Values.common.env }}
@@ -98,8 +95,10 @@ metadata:
     {{- . | nindent 4 }}
   {{- end}} 
 spec:
-  {{- if not .replicas.autoscalingEnabled }}
-  replicas: {{ .replicas.replicaCount }}
+  {{- with (include "template.replicas" (.replicas | default dict)| fromYaml )}}
+  {{- if not .autoScalingEnabled }}
+  replicas: {{ .replicaCount }}
+  {{- end }}
   {{- end }}
   selector:
     matchLabels:
@@ -151,11 +150,6 @@ spec:
             {{- end }}
           {{- end }}
           resources:
-            limits:
-              cpu: {{ .limits.cpu }}
-              memory: {{.limits.memory }}
-            requests:
-              cpu: {{ .requests.cpu }}
-              memory: {{ .requests.memory }} 
+            {{- include "template.resources" (.resources | default dict ) | nindent 12}}
 {{- end }}    
 {{- end }} 

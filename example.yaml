@@ -55,13 +55,6 @@ workers:
       tag: "latest"
     commands:
       - /bin/top
-    resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
     replicas:
       autoScalingEnabled: true
       replicaCount: 1

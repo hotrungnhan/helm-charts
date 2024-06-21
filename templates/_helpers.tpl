@@ -65,8 +65,9 @@ App Image| args [$  .image]
 {{- define "get.image_url" -}}
 {{- $root := index . 0 -}}
 {{- $current := index . 1 -}}
-{{- printf "%s/%s:%s" ($current.registry | default $root.Values.common.image.registry) ($current.repository | default $root.Values.common.image.repository) ($current.tag | default $root.Values.common.image.tag)  }}
-{{- end }}
+{{- $image := $current | default dict }}
+{{- printf "%s/%s:%s" ($image.registry | default $root.Values.common.image.registry) ($image.repository | default $root.Values.common.image.repository) ($image.tag | default $root.Values.common.image.tag)  }}
+{{- end }}Ư
 
 {{/*
 Pull Secret | args [$  .pullSecrets]
@@ -82,32 +83,18 @@ Pull Secret | args [$  .pullSecrets]
 {{- end }}
 {{- end }}
 
-{{- define "template.worker" -}}
-enabled: true
-image: ~
-commands: ~
-args: ~
-replicas: ~
-resources: ~
-env: ~
-secret: ~ # secret is a env but private
-affinity: ~
-placement: ~
-extras: ~
-{{- end }}
-
 {{- define "template.resources" -}}
 limits:
-  cpu: 100m
-  memory: 128Mi
+  cpu: {{dig "limits" "cpu" "100m" . }}
+  memory: {{dig "limits" "memory"  "128Mi" .}}
 requests:
-  cpu: 100m
-  memory: 128Mi
+  cpu: {{ dig "requests" "cpu" "100m" .}}
+  memory: {{dig "requests" "memory" "128Mi" .}}
 {{- end }}
 
 {{- define "template.replicas" -}}
-autoScalingEnabled: 
-  replicaCount: 1
-  minReplicas: 0
-  maxReplicas: 2
+autoScalingEnabled: {{ dig "autoScalingEnabled" "" .  }}
+replicaCount: {{ dig "replicaCount" 1 . }}
+minReplicas: {{ dig "minReplicas" 0 . }}
+maxReplicas: {{ dig "maxReplicas" 3 . }}
 {{- end }}
