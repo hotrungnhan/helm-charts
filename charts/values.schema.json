@@ -118,7 +118,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "default": 80
                 },
                 "annotations": {
                     "type": [

@@ -1,0 +1,13 @@
+# Stateless application
+common:
+  image:
+    registry: registry-1.docker.io
+app:
+  enabled: true
+  name: "whoami" # required
+  image:
+    repository: traefik/whoami
+    tag: latest
+  port: 80
+  annotations: ~
+  labels: ~
