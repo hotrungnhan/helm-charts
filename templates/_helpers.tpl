@@ -78,6 +78,36 @@ Pull Secret | args [$  .pullSecrets]
 {{- if $current.registry }}
 {{- toYaml $current}}
 {{- else if $root.Values.common.image.pullSecrets }}
-{{- toYaml $root.Values.common.image.pullSecrets}}
+{{- toYaml $root.Values.common.image.pullSecrets }}
 {{- end }}
+{{- end }}
+
+{{- define "template.worker" -}}
+enabled: true
+image: ~
+commands: ~
+args: ~
+replicas: ~
+resources: ~
+env: ~
+secret: ~ # secret is a env but private
+affinity: ~
+placement: ~
+extras: ~
+{{- end }}
+
+{{- define "template.resources" -}}
+limits:
+  cpu: 100m
+  memory: 128Mi
+requests:
+  cpu: 100m
+  memory: 128Mi
+{{- end }}
+
+{{- define "template.replicas" -}}
+autoScalingEnabled: 
+  replicaCount: 1
+  minReplicas: 0
+  maxReplicas: 2
 {{- end }}
