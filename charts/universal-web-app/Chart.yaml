@@ -1,6 +1,6 @@
 apiVersion: v2
 name: web-application
-version: 0.1.0
+version: 0.1.1
 description: |
   A getting started helm chart for running a any application, most compatible with web service
   This chart runs a kubernetes deployment, service, jobs
@@ -11,7 +11,7 @@ maintainers:
     email: hotrungnhan29@gmail.com
 sources:
   - https://github.com/hotrungnhan/helm-charts
-kubeVersion: ">=1.16.0-0"
+kubeVersion: ">=1.18.0-0"
 home: https://github.com/hotrungnhan/helm-charts
 keywords:
   - nodejs
