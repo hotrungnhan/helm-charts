@@ -126,6 +126,7 @@ spec:
       labels:
         app.kubernetes.io/name: abc 
     spec:
+      backoffLimit: 1
       restartPolicy: Never
       containers:
         - name: job-database-migration

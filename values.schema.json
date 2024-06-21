@@ -199,6 +199,14 @@
                         "maxReplicas": {
                             "type": "integer",
                             "default": 3
+                        },
+                        "targetCPUUtilizationPercentage": {
+                            "type": "integer",
+                            "default": 70
+                        },
+                        "targetMemoryUtilizationPercentage": {
+                            "type": "integer",
+                            "default": 70
                         }
                     }
                 },
@@ -497,6 +505,14 @@
                             "maxReplicas": {
                                 "type": "integer",
                                 "default": 10
+                            },
+                            "targetCPUUtilizationPercentage": {
+                                "type": "integer",
+                                "default": 70
+                            },
+                            "targetMemoryUtilizationPercentage": {
+                                "type": "integer",
+                                "default": 70
                             }
                         }
                     },

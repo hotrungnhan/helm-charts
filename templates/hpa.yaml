@@ -1,0 +1,83 @@
+{{- /*
+App auto scaler
+*/ -}}
+{{- with .Values.app }}
+{{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
+{{- if $replicas.autoscalingEnabled }}
+{{- $deploymentName := .name }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $deploymentName }}
+  {{- with include "get.labels.full" (list $ .labels) }}
+  labels:
+    {{- . | nindent 4 }}
+  {{- end}}
+  {{- with include "get.annotations" (list $ .annotations) }}
+  annotations: 
+    {{- . | nindent 4 }}
+  {{- end}} 
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $deploymentName }}
+  minReplicas: {{ $replicas.minReplicas }}
+  maxReplicas: {{ $replicas.maxReplicas }}
+  metrics:
+    {{- if $replicas.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage  }}
+    {{- end }}
+    {{- if $replicas.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage  }}
+    {{- end }}
+{{- end }}
+{{- end }}
+
+{{- /*
+Worker auto scaler
+*/ -}}
+{{- range .Values.workers}}
+{{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
+{{- if $replicas.autoscalingEnabled }}
+{{- $deploymentName := printf "%s-worker-%s" (include "application.fullname" $) (.name) }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $deploymentName }}
+  {{- with include "get.labels.full" (list $ .labels) }}
+  labels:
+    {{- . | nindent 4 }}
+  {{- end}}
+  {{- with include "get.annotations" (list $ .annotations) }}
+  annotations: 
+    {{- . | nindent 4 }}
+  {{- end}} 
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $deploymentName }}
+  minReplicas: {{ $replicas.minReplicas }}
+  maxReplicas: {{ $replicas.maxReplicas }}
+  metrics:
+    {{- if $replicas.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if $replicas.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}
+{{- end }}

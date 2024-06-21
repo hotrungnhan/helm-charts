@@ -25,6 +25,9 @@ spec:
         {{- . | nindent 8 }}
       {{- end}} 
     spec:
+      {{- with .backoffLimit | default 1}}
+      backoffLimit: {{ . }}
+      {{- end }}
       restartPolicy: Never
       {{- with (include "get.image_pull_secrets" (list $ .image.pullSecrets) )}}
       imagePullSecrets: 

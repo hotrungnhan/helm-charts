@@ -1,5 +1,5 @@
 {{- with .Values.app.ingress}}
-{{- if and .enabled $.Values.app.port -}}
+{{- if and (.enabled | default true) $.Values.app.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
