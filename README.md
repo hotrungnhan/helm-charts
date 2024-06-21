@@ -5,9 +5,9 @@ This repository contains Helm charts for deploying various applications and serv
 
 ## Available Charts
 
-| Chart Name        | Repository Path                                        | Artifact hub | Status |
-| ----------------- | ------------------------------------------------------ | ------------ | ------ |
-| universal-web-app | [/charts/universal/webapp](./charts/universal-web-app) | WIP          | WIP    |
+| Chart Name                                      | Repository Path | Status |
+| ----------------------------------------------- | --------------- | ------ |
+| [universal-web-app](./charts/universal-web-app) | WIP             | WIP    |
 
 ## Getting Started
 
