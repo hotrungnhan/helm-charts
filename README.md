@@ -1,3 +1,4 @@
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/hotrungnhan)](https://artifacthub.io/packages/search?repo=hotrungnhan)
 # Helm Charts Repository
 
 This repository contains Helm charts for deploying various applications and services on Kubernetes.
