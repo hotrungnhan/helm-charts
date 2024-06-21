@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/helmfile.json": "file:///Users/kudousterain/Desktop/Joy/webtruyen/backend/.charts/values.yaml"
-    }
-}
