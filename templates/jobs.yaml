@@ -3,27 +3,35 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "application.fullname" $ }}-{{ $.Release.Revision }}
+  name: {{printf "%s-job-%s" (include "application.fullname" $) .name}}
+  {{- with include "get.labels.full" (list $ .labels) }}
   labels:
-    {{- include "application.labels" $ | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end}}
   annotations: 
+    {{- with include "get.annotations" (list $ .annotations) }}
+    {{ . | nindent 4 }}
+    {{- end}}
     helm.sh/hook: {{ join "," .events }}
 spec:
   template:
     metadata:
-      annotations: 
-        {{- include "get.annotations" (list $ .annotations) | nindent 8 }}
+      {{- with include "get.labels.selector" (list $ .labels) }}
       labels:
-        {{- include "application.labels" $ | nindent 8 }}
+        {{- . | nindent 8 }}
+      {{- end}}
+      {{- with include "get.annotations" (list $ .annotations) }}
+      annotations: 
+        {{- . | nindent 8 }}
+      {{- end}} 
     spec:
       restartPolicy: Never
-      # serviceAccountName: {{ include "application.fullname" $ }}
       {{- with (include "get.image_pull_secrets" (list $ .image.pullSecrets) )}}
       imagePullSecrets: 
         {{- . | nindent 8}}
       {{- end }}
       containers:
-        - name: {{ include "application.fullname" $ }}
+        - name: {{printf "job-%s" .name}}
           image: {{ include "get.image_url" (list $ .image) }}
           imagePullPolicy: Always
           {{- if or $.Values.common.env .env }}

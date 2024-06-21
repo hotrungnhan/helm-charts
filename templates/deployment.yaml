@@ -5,21 +5,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .name }}
+  {{- with include "get.labels.full" (list $ .labels) }}
   labels:
-    {{- include "get.labels" (list $ .labels) | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end}}
+  {{- with include "get.annotations" (list $ .annotations) }}
   annotations: 
-    {{- include "get.annotations" (list $ .annotations) | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end}} 
 spec:
   {{- if not .replicas.autoscalingEnabled }}
-  replicas: {{ .replicas.replicaCount }}
+  replicas: {{ .replicas.replicaCount | default 1 }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "get.labels" (list $ .labels) | nindent 6 }}
+      {{- (include "get.labels.selector" (list $ .labels) )| nindent 6 }}
   template:
     metadata:
       labels: 
-        {{- include "get.labels" (list $ .labels) | nindent 8 }}
+        {{- (include "get.labels.selector" (list $ .labels)) | nindent 8 }}
     spec:
       {{- with .affinity }}
       affinity:
@@ -34,7 +38,7 @@ spec:
         {{- . | nindent 8}}
       {{- end }}
       containers: 
-      - name: {{ .name }}
+      - name:  {{printf "app-%s" .name}}
         image: {{ include "get.image_url" (list $ .image) }}
         {{- with .commands }}
         command: {{ toJson . }}
@@ -84,22 +88,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .name }}
+  name: {{printf "%s-worker-%s" (include "application.fullname" $) (.name)}}
+  {{- with include "get.labels.full" (list $ .labels) }}
   labels:
-    {{- include "get.labels" (list $ .labels) | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end}}
+  {{- with include "get.annotations" (list $ .annotations) }}
   annotations: 
-    {{- include "get.annotations" (list $ .annotations) | nindent 4 }}
+    {{- . | nindent 4 }}
+  {{- end}} 
 spec:
   {{- if not .replicas.autoscalingEnabled }}
   replicas: {{ .replicas.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "get.labels" (list $ .labels) | nindent 6 }}
+      {{- (include "get.labels.selector" (list $ .labels) )| nindent 6 }}
   template:
     metadata:
       labels: 
-        {{- include "get.labels" (list $ .labels) | nindent 8 }}
+        {{- (include "get.labels.selector" (list $ .labels)) | nindent 8 }}
     spec:
       {{- with .affinity }}
       affinity:
@@ -114,7 +122,7 @@ spec:
         {{- . | nindent 8}}
       {{- end }}
       containers: 
-        - name: {{ .name }}
+        - name: {{printf "worker-%s" .name}}
           image: {{ include "get.image_url" (list $ .image) }}
           {{- with .commands }}
           command: {{ toJson . }}

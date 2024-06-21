@@ -1,27 +1,14 @@
 # Stateless application
 common:
-  annotations: ~
-  labels: ~
-  env: ~
-  secret: ~ # secret is a env but private
-  image: 
-    registry: ~
-    repository: ~
-    tag: ~
-    pullSecrets: 
-      - name: "cccc"
+  image:
+    registry: registry-1.docker.io
 app:
   enabled: true
-  name: rails
+  name: whoami
   image:
-    registry: registry.hub.docker.com
     repository: traefik/whoami #
     tag: latest
-    pullSecrets: ~
-  commands: ~
-  args: ~
   port: 80
-  annotations: ~
   ingress:
     enabled: true
     annotations:
@@ -32,39 +19,17 @@ app:
     host: whoami.3.1.243.29.traefik.me
     path: /
     pathType: "Prefix"
-    tls: ~
   replicas:
     autoScalingEnabled: true
     replicaCount: 1
     minReplicas: 0
     maxReplicas: 10
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-  env: ~
-  secret: ~
-  # affinity:
-  # placement: {}
   jobs:
     - enabled: true
       name: database-migration
       image:
-        sameAsApp: false
-        registry: registry.hub.docker.com
         repository: library/busybox #
         tag: latest
-        pullSecrets: ~
-      commands:
-        - sleep
-        - "1"
-      events: # helm event
-        - pre-install
-      env: ~
-      secret: ~
       resources:
         limits:
           cpu: 100m
@@ -72,27 +37,24 @@ app:
         requests:
           cpu: 100m
           memory: 128Mi
-  extras:
-    # -
+      replicas:
+        autoScalingEnabled: true
+        replicaCount: 1
+        minReplicas: 0
+        maxReplicas: 10
+      commands:
+        - sleep
+        - "1"
+      events: # helm event
+        - pre-install
 workers:
   - enabled: true
-    name: "abcxyz"
-    labels: ~
-    annotations: ~
+    name: "top"
     image:
-      sameAsApp: false
-      registry: registry.hub.docker.com
       repository: library/busybox #
       tag: "latest"
-      pullSecrets: ~
     commands:
       - /bin/top
-    args: ~
-    replicas:
-      autoScalingEnabled: true
-      replicaCount: 1
-      minReplicas: 0
-      maxReplicas: 10
     resources:
       limits:
         cpu: 100m
@@ -100,9 +62,8 @@ workers:
       requests:
         cpu: 100m
         memory: 128Mi
-    env: ~
-    secret: ~ # secret is a env but private
-    affinity: ~
-    placement: ~
-    extras: ~
-extras: ~
+    replicas:
+      autoScalingEnabled: true
+      replicaCount: 1
+      minReplicas: 0
+      maxReplicas: 10
