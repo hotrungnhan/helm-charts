@@ -1,0 +1,17 @@
+{{- with .Values.app -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "application.fullname" $ }}
+  labels:
+    {{- include "application.labels" $ | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: {{ .port }}
+      targetPort: {{ .port }}
+      protocol: TCP
+  selector:
+    {{- include "application.selectorLabels" $ | nindent 4 }}
+{{- end }}

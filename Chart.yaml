@@ -1,0 +1,28 @@
+apiVersion: v2
+name: web-application
+version: 0.1.0
+description: |
+  A getting started helm chart for running a any application, most compatible with web service
+  This chart runs a kubernetes deployment, service, jobs
+  
+type: application
+icon: https://raw.githubusercontent.com/hotrungnhan/helm-charts/main/charts/icon.png
+maintainers:
+  - name: Ho Trung Nhan
+    email: hotrungnhan29@gmail.com
+sources:
+  - https://github.com/hotrungnhan/helm-charts
+kubeVersion: ">=1.16.0-0"
+home: https://github.com/hotrungnhan/helm-charts
+keywords:
+  - nodejs 
+  - golang 
+  - ruby-on-rails
+  - elixir
+  - ruby
+  - rails
+annotations:
+  "artifacthub.io/license": MIT License
+  "artifacthub.io/links": |
+    - name: Chart Source
+      url: https://github.com/hotrungnhan/helm-charts

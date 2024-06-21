@@ -1,0 +1,16 @@
+{{range .Values.extras}}
+---
+{{- toYaml .}}
+{{- end }}
+
+{{range .Values.app.extras}}
+---
+{{- toYaml .}}
+{{- end }}
+
+{{range .Values.workers}}
+{{range .extras}}
+---
+{{- toYaml .}}
+{{- end }}
+{{- end }}

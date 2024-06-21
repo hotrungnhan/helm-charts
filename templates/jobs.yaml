@@ -1,0 +1,64 @@
+{{ range .Values.app.jobs }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "application.fullname" $ }}-{{ $.Release.Revision }}
+  labels:
+    {{- include "application.labels" $ | nindent 4 }}
+  annotations: 
+    helm.sh/hook: {{ join "," .events }}
+spec:
+  template:
+    metadata:
+      annotations: 
+        {{- include "get.annotations" (list $ .annotations) | nindent 8 }}
+      labels:
+        {{- include "application.labels" $ | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      # serviceAccountName: {{ include "application.fullname" $ }}
+      {{- with (include "get.image_pull_secrets" (list $ .image.pullSecrets) )}}
+      imagePullSecrets: 
+        {{- . | nindent 8}}
+      {{- end }}
+      containers:
+        - name: {{ include "application.fullname" $ }}
+          image: {{ include "get.image_url" (list $ .image) }}
+          imagePullPolicy: Always
+          {{- if or $.Values.common.env .env }}
+          env:
+            {{- with $.Values.common.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- end }}
+          {{- if or .secret $.Values.common.secret }}
+          envFrom:
+            {{- with .secret}}
+            - secretRef:
+                name: {{ printf "%s-job-%s" (include "application.fullname" $) (.name)}}
+            {{- end }}
+            {{- with $.Values.common.secret}}
+            - secretRef:
+                name: {{ include "application.fullname" $ }}-common
+            {{- end }}
+          {{- end }}
+          {{- with .commands }}
+          command:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources:
+            limits:
+              cpu: {{ .resources.limits.cpu }}
+              memory: {{ .resources.limits.memory }}
+            requests:
+              cpu: {{ .resources.requests.cpu }}
+              memory: {{ .resources.requests.memory }} 
+{{- end }}

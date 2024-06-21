@@ -1,0 +1,108 @@
+# Stateless application
+common:
+  annotations: ~
+  labels: ~
+  env: ~
+  secret: ~ # secret is a env but private
+  image: 
+    registry: ~
+    repository: ~
+    tag: ~
+    pullSecrets: 
+      - name: "cccc"
+app:
+  enabled: true
+  name: rails
+  image:
+    registry: registry.hub.docker.com
+    repository: traefik/whoami #
+    tag: latest
+    pullSecrets: ~
+  commands: ~
+  args: ~
+  port: 80
+  annotations: ~
+  ingress:
+    enabled: true
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls.certresolver: let-encrypt
+      traefik.ingress.kubernetes.io/service.nativelb: "true"
+    className: traefik
+    host: whoami.3.1.243.29.traefik.me
+    path: /
+    pathType: "Prefix"
+    tls: ~
+  replicas:
+    autoScalingEnabled: true
+    replicaCount: 1
+    minReplicas: 0
+    maxReplicas: 10
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  env: ~
+  secret: ~
+  # affinity:
+  # placement: {}
+  jobs:
+    - enabled: true
+      name: database-migration
+      image:
+        sameAsApp: false
+        registry: registry.hub.docker.com
+        repository: library/busybox #
+        tag: latest
+        pullSecrets: ~
+      commands:
+        - sleep
+        - "1"
+      events: # helm event
+        - pre-install
+      env: ~
+      secret: ~
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+  extras:
+    # -
+workers:
+  - enabled: true
+    name: "abcxyz"
+    labels: ~
+    annotations: ~
+    image:
+      sameAsApp: false
+      registry: registry.hub.docker.com
+      repository: library/busybox #
+      tag: "latest"
+      pullSecrets: ~
+    commands:
+      - /bin/top
+    args: ~
+    replicas:
+      autoScalingEnabled: true
+      replicaCount: 1
+      minReplicas: 0
+      maxReplicas: 10
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    env: ~
+    secret: ~ # secret is a env but private
+    affinity: ~
+    placement: ~
+    extras: ~
+extras: ~
