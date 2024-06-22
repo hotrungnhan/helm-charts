@@ -7,6 +7,37 @@ entries:
         - name: Chart Source
           url: https://github.com/hotrungnhan/helm-charts
     apiVersion: v2
+    created: "2024-06-22T03:10:55.154370503Z"
+    description: 'A getting started helm chart for running a any application, most
+      compatible with web service This chart runs a kubernetes deployment, workers,
+      jobs '
+    digest: fa8d96fa340196d7879d345ed27d8115aaf543ce09bea6c32355f10e0dedc3a5
+    home: https://github.com/hotrungnhan/helm-charts
+    icon: https://raw.githubusercontent.com/hotrungnhan/helm-charts/main/charts/universal-web-app/icon.png
+    keywords:
+    - nodejs
+    - golang
+    - ruby-on-rails
+    - elixir
+    - ruby
+    - rails
+    kubeVersion: '>=1.18.0-0'
+    maintainers:
+    - email: hotrungnhan29@gmail.com
+      name: Ho Trung Nhan
+    name: universal-web-app
+    sources:
+    - https://github.com/hotrungnhan/helm-charts
+    type: application
+    urls:
+    - https://github.com/hotrungnhan/helm-charts/releases/download/universal-web-app-0.1.4/universal-web-app-0.1.4.tgz
+    version: 0.1.4
+  - annotations:
+      artifacthub.io/license: MIT License
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/hotrungnhan/helm-charts
+    apiVersion: v2
     created: "2024-06-22T03:08:27.713180952Z"
     description: 'A getting started helm chart for running a any application, most
       compatible with web service This chart runs a kubernetes deployment, workers,
@@ -95,4 +126,4 @@ entries:
     urls:
     - https://github.com/hotrungnhan/helm-charts/releases/download/web-application-0.1.1/web-application-0.1.1.tgz
     version: 0.1.1
-generated: "2024-06-22T03:08:27.713194016Z"
+generated: "2024-06-22T03:10:55.154390531Z"
