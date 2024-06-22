@@ -110,8 +110,7 @@ app:
     host: "my-app.example.com"
     path: "/app"
     pathType: "Prefix"
-    tls: 
-      enabled: true
+    tls: ""
   replicas:
     autoScalingEnabled: true
     replicaCount: 3
@@ -206,114 +205,114 @@ extras:
 
 ### Configuration Table for `common`
 
-| Key        | Type                | Default               | Description                            |
-|------------|---------------------|-----------------------|----------------------------------------|
-| annotations| object \| null      | null                  | Annotations to be applied              |
-| labels     | object \| null      | null                  | Labels to be applied                   |
-| env        | object \| null      | null                  | Environment variables                  |
-| secret     | object \| null      | null                  | Secrets                                |
-| image      | object              |                       | Image configuration                    |
-| registry   | string              | "registry-1.docker.io"| Image registry                         |
-| repository | string              | "traefik/whoami"      | Image repository                       |
-| tag        | string              | "latest"              | Image tag                              |
+| Key         | Type           | Default                | Description               |
+| ----------- | -------------- | ---------------------- | ------------------------- |
+| annotations | object \| null | null                   | Annotations to be applied |
+| labels      | object \| null | null                   | Labels to be applied      |
+| env         | object \| null | null                   | Environment variables     |
+| secret      | object \| null | null                   | Secrets                   |
+| image       | object         |                        | Image configuration       |
+| registry    | string         | "registry-1.docker.io" | Image registry            |
+| repository  | string         | "traefik/whoami"       | Image repository          |
+| tag         | string         | "latest"               | Image tag                 |
 
 ### Configuration Table for `app`
 
-| Key                                 | Type                | Default | Description                                            |
-|-------------------------------------|---------------------|---------|--------------------------------------------------------|
-| enabled                             | boolean             | true    | Enable or disable the app                              |
-| name                                | string              |         | Name of the app                                        |
-| image                               | object \| null      | null    | App image configuration                                |
-| image.registry                      | string \| null      | null    | App image registry                                     |
-| image.repository                    | string \| null      | null    | App image repository                                   |
-| image.tag                           | string \| null      | null    | App image tag                                          |
-| image.pullSecrets                   | array \| null       | null    | Secrets for image pulling                              |
-| commands                            | array \| null       | null    | Commands to run                                        |
-| args                                | array \| null       | null    | Arguments to pass                                      |
-| port                                | integer \| null     | 80      | Port number                                            |
-| annotations                         | object \| null      | null    | Annotations to be applied                              |
-| labels                              | object \| null      | null    | Labels to be applied                                   |
-| ingress                             | object              |         | Ingress configuration                                  |
-| ingress.enabled                     | boolean             | false   | Enable or disable ingress                              |
-| ingress.annotations                 | object \| null      | null    | Ingress annotations                                    |
-| ingress.labels                      | object \| null      | null    | Ingress labels                                         |
-| ingress.className                   | string \| null      | null    | Ingress class name                                     |
-| ingress.host                        | string \| null      | null    | Ingress host                                           |
-| ingress.path                        | string              | "/"     | Ingress path                                           |
-| ingress.pathType                    | string \| null      | null    | Ingress path type                                      |
-| ingress.tls                         | object \| null      | null    | Ingress TLS configuration                              |
-| replicas                            | object              |         | Replica settings                                       |
-| replicas.autoScalingEnabled         | boolean             | true    | Enable or disable auto-scaling                         |
-| replicas.replicaCount               | integer             | 1       | Number of replicas                                     |
-| replicas.minReplicas                | integer             | 0       | Minimum number of replicas                             |
-| replicas.maxReplicas                | integer             | 3       | Maximum number of replicas                             |
-| replicas.targetCPUUtilizationPercentage | integer        | 70      | Target CPU utilization for scaling                     |
-| replicas.targetMemoryUtilizationPercentage | integer     | 70      | Target memory utilization for scaling                  |
-| resources                           | object \| null      | null    | Resource limits and requests                           |
-| resources.limits                    | object \| null      | null    | Resource limits                                        |
-| resources.limits.cpu                | string              | "100m"  | CPU limit                                              |
-| resources.limits.memory             | string              | "128Mi" | Memory limit                                           |
-| resources.requests                  | object \| null      | null    | Resource requests                                      |
-| resources.requests.cpu              | string              | "100m"  | CPU request                                            |
-| resources.requests.memory           | string              | "128Mi" | Memory request                                         |
-| env                                 | object \| null      | null    | Environment variables                                  |
-| secret                              | object \| null      | null    | Secrets                                                |
-| jobs                                | array               |         | Job configurations                                     |
-| extras                              | array \| null       | []      | Extra configurations                                   |
+| Key                                        | Type            | Default | Description                           |
+| ------------------------------------------ | --------------- | ------- | ------------------------------------- |
+| enabled                                    | boolean         | true    | Enable or disable the app             |
+| name                                       | string          |         | Name of the app                       |
+| image                                      | object \| null  | null    | App image configuration               |
+| image.registry                             | string \| null  | null    | App image registry                    |
+| image.repository                           | string \| null  | null    | App image repository                  |
+| image.tag                                  | string \| null  | null    | App image tag                         |
+| image.pullSecrets                          | array \| null   | null    | Secrets for image pulling             |
+| commands                                   | array \| null   | null    | Commands to run                       |
+| args                                       | array \| null   | null    | Arguments to pass                     |
+| port                                       | integer \| null | 80      | Port number                           |
+| annotations                                | object \| null  | null    | Annotations to be applied             |
+| labels                                     | object \| null  | null    | Labels to be applied                  |
+| ingress                                    | object          |         | Ingress configuration                 |
+| ingress.enabled                            | boolean         | false   | Enable or disable ingress             |
+| ingress.annotations                        | object \| null  | null    | Ingress annotations                   |
+| ingress.labels                             | object \| null  | null    | Ingress labels                        |
+| ingress.className                          | string \| null  | null    | Ingress class name                    |
+| ingress.host                               | string \| null  | null    | Ingress host                          |
+| ingress.path                               | string          | "/"     | Ingress path                          |
+| ingress.pathType                           | string \| null  | null    | Ingress path type                     |
+| ingress.tls                                | string \| null  | null    | Ingress TLS configuration             |
+| replicas                                   | object          |         | Replica settings                      |
+| replicas.autoScalingEnabled                | boolean         | true    | Enable or disable auto-scaling        |
+| replicas.replicaCount                      | integer         | 1       | Number of replicas                    |
+| replicas.minReplicas                       | integer         | 0       | Minimum number of replicas            |
+| replicas.maxReplicas                       | integer         | 3       | Maximum number of replicas            |
+| replicas.targetCPUUtilizationPercentage    | integer         | 70      | Target CPU utilization for scaling    |
+| replicas.targetMemoryUtilizationPercentage | integer         | 70      | Target memory utilization for scaling |
+| resources                                  | object \| null  | null    | Resource limits and requests          |
+| resources.limits                           | object \| null  | null    | Resource limits                       |
+| resources.limits.cpu                       | string          | "100m"  | CPU limit                             |
+| resources.limits.memory                    | string          | "128Mi" | Memory limit                          |
+| resources.requests                         | object \| null  | null    | Resource requests                     |
+| resources.requests.cpu                     | string          | "100m"  | CPU request                           |
+| resources.requests.memory                  | string          | "128Mi" | Memory request                        |
+| env                                        | object \| null  | null    | Environment variables                 |
+| secret                                     | object \| null  | null    | Secrets                               |
+| jobs                                       | array           |         | Job configurations                    |
+| extras                                     | array \| null   | []      | Extra configurations                  |
 
 ### Configuration Table for `workers`
 
-| Key                                 | Type                | Default | Description                                            |
-|-------------------------------------|---------------------|---------|--------------------------------------------------------|
-| enabled                             | boolean             | true    | Enable or disable the worker                           |
-| name                                | string              |         | Name of the worker                                     |
-| labels                              | object \| null      | null    | Labels to be applied to the worker                     |
-| annotations                         | object \| null      | null    | Annotations to be applied to the worker                |
-| image                               | object              |         | Worker image configuration                             |
-| image.registry                      | string \| null      | null    | Worker image registry                                  |
-| image.repository                    | string \| null      | null    | Worker image repository                                |
-| image.tag                           | string \| null      | null    | Worker image tag                                       |
-| image.pullSecrets                   | array \| null       | null    | Secrets for pulling the worker image                   |
-| commands                            | array \| null       | null    | Commands to run for the worker                         |
-| args                                | array \| null       | null    | Arguments to pass to the worker                        |
-| replicas                            | object              |         | Worker replica settings                                |
-| replicas.autoScalingEnabled         | boolean             | true    | Enable or disable auto-scaling for workers             |
-| replicas.replicaCount               | integer             | 1       | Number of worker replicas                              |
-| replicas.minReplicas                | integer             | 0       | Minimum number of worker replicas                      |
-| replicas.maxReplicas                | integer             | 10      | Maximum number of worker replicas                      |
-| replicas.targetCPUUtilizationPercentage | integer        | 70      | Target CPU utilization for worker scaling              |
-| replicas.targetMemoryUtilizationPercentage | integer     | 70      | Target memory utilization for worker scaling           |
-| resources                           | object \| null      | null    | Worker resource limits and requests                    |
-| resources.limits                    | object \| null      | null    | Worker resource limits                                 |
-| resources.limits.cpu                | string              | "100m"  | Worker CPU limit                                       |
-| resources.limits.memory             | string              | "128Mi" | Worker memory limit                                    |
-| resources.requests                  | object \| null      | null    | Worker resource requests                               |
-| resources.requests.cpu              | string              | "100m"  | Worker CPU request                                     |
-| resources.requests.memory           | string              | "128Mi" | Worker memory request                                  |
-| env                                 | object \| null      | null    | Worker environment variables                           |
-| secret                              | object \| null      | null    | Worker secrets                                         |
-| affinity                            | object \| null      | null    | Worker affinity settings                               |
-| placement                           | object \| null      | null    | Worker placement settings                              |
-| extras                              | array \| null       | []      | Extra configurations for workers                       |
+| Key                                        | Type           | Default | Description                                  |
+| ------------------------------------------ | -------------- | ------- | -------------------------------------------- |
+| enabled                                    | boolean        | true    | Enable or disable the worker                 |
+| name                                       | string         |         | Name of the worker                           |
+| labels                                     | object \| null | null    | Labels to be applied to the worker           |
+| annotations                                | object \| null | null    | Annotations to be applied to the worker      |
+| image                                      | object         |         | Worker image configuration                   |
+| image.registry                             | string \| null | null    | Worker image registry                        |
+| image.repository                           | string \| null | null    | Worker image repository                      |
+| image.tag                                  | string \| null | null    | Worker image tag                             |
+| image.pullSecrets                          | array \| null  | null    | Secrets for pulling the worker image         |
+| commands                                   | array \| null  | null    | Commands to run for the worker               |
+| args                                       | array \| null  | null    | Arguments to pass to the worker              |
+| replicas                                   | object         |         | Worker replica settings                      |
+| replicas.autoScalingEnabled                | boolean        | true    | Enable or disable auto-scaling for workers   |
+| replicas.replicaCount                      | integer        | 1       | Number of worker replicas                    |
+| replicas.minReplicas                       | integer        | 0       | Minimum number of worker replicas            |
+| replicas.maxReplicas                       | integer        | 10      | Maximum number of worker replicas            |
+| replicas.targetCPUUtilizationPercentage    | integer        | 70      | Target CPU utilization for worker scaling    |
+| replicas.targetMemoryUtilizationPercentage | integer        | 70      | Target memory utilization for worker scaling |
+| resources                                  | object \| null | null    | Worker resource limits and requests          |
+| resources.limits                           | object \| null | null    | Worker resource limits                       |
+| resources.limits.cpu                       | string         | "100m"  | Worker CPU limit                             |
+| resources.limits.memory                    | string         | "128Mi" | Worker memory limit                          |
+| resources.requests                         | object \| null | null    | Worker resource requests                     |
+| resources.requests.cpu                     | string         | "100m"  | Worker CPU request                           |
+| resources.requests.memory                  | string         | "128Mi" | Worker memory request                        |
+| env                                        | object \| null | null    | Worker environment variables                 |
+| secret                                     | object \| null | null    | Worker secrets                               |
+| affinity                                   | object \| null | null    | Worker affinity settings                     |
+| placement                                  | object \| null | null    | Worker placement settings                    |
+| extras                                     | array \| null  | []      | Extra configurations for workers             |
 
 ### Configuration Table for `jobs`
 
-| Key                                 | Type                | Default | Description                                            |
-|-------------------------------------|---------------------|---------|--------------------------------------------------------|
-| enabled                             | boolean             | true    | Enable or disable the job                              |
-| name                                | string              |         | Name of the job                                        |
-| image                               | object \| null      | null    | Job image configuration                                |
-| image.registry                      | string \| null      | null    | Job image registry                                     |
-| image.repository                    | string \| null      | null    | Job image repository                                   |
-| image.tag                           | string \| null      | null    | Job image tag                                          |
-| image.pullSecrets                   | array \| null       | null    | Secrets for pulling the job image                      |
-| commands                            | array \| null       | null    | Commands to run for the job                            |
-| args                                | array \| null       | null    | Arguments to pass to the job                           |
-| events                              | array               | null    | Events triggering the job                              |
-| env                                 | object \| null      | null    | Job environment variables                              |
-| secret                              | object \| null      | null    | Job secrets                                            |
-| resources                           | object              |         | Job resource limits and requests                       |
-|
+| Key               | Type           | Default | Description                       |
+| ----------------- | -------------- | ------- | --------------------------------- |
+| enabled           | boolean        | true    | Enable or disable the job         |
+| name              | string         |         | Name of the job                   |
+| image             | object \| null | null    | Job image configuration           |
+| image.registry    | string \| null | null    | Job image registry                |
+| image.repository  | string \| null | null    | Job image repository              |
+| image.tag         | string \| null | null    | Job image tag                     |
+| image.pullSecrets | array \| null  | null    | Secrets for pulling the job image |
+| commands          | array \| null  | null    | Commands to run for the job       |
+| args              | array \| null  | null    | Arguments to pass to the job      |
+| events            | array          | null    | Events triggering the job         |
+| env               | object \| null | null    | Job environment variables         |
+| secret            | object \| null | null    | Job secrets                       |
+| resources         | object         |         | Job resource limits and requests  |
+|                   |
 
  resources.limits                    | object              |         | Job resource limits                                    |
 | resources.limits.cpu                | string              | "100m"  | Job CPU limit                                          |

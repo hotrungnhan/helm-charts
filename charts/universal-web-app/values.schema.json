@@ -182,7 +182,7 @@
                         },
                         "tls": {
                             "type": [
-                                "object",
+                                "string",
                                 "null"
                             ]
                         }
