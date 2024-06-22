@@ -67,6 +67,7 @@ The following Helm hooks are supported for jobs:
 These hooks can be used to trigger jobs at specific points during the release lifecycle.
 
 ## Configuration table (WIP)
+
 ## License
 
 This Helm chart is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for more details.

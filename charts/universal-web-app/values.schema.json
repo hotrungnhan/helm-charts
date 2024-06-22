@@ -22,6 +22,7 @@
                         "object",
                         "null"
                     ],
+                    "default": null,
                     "additionalProperties": {
                         "type": "string"
                     }
@@ -31,6 +32,7 @@
                         "object",
                         "null"
                     ],
+                    "default": null,
                     "additionalProperties": {
                         "type": "string"
                     }
@@ -66,6 +68,7 @@
                 },
                 "image": {
                     "type": "object",
+                    "default": null,
                     "properties": {
                         "registry": {
                             "type": [
@@ -101,6 +104,7 @@
                         "array",
                         "null"
                     ],
+                    "default": null,
                     "items": {
                         "type": "string"
                     }
@@ -110,6 +114,7 @@
                         "array",
                         "null"
                     ],
+                    "default": null,
                     "items": {
                         "type": "string"
                     }
@@ -125,7 +130,8 @@
                     "type": [
                         "object",
                         "null"
-                    ]
+                    ],
+                    "default": null
                 },
                 "labels": {
                     "type": [
@@ -256,6 +262,7 @@
                         "object",
                         "null"
                     ],
+                    "default": null,
                     "additionalProperties": {
                         "type": "string"
                     }
@@ -265,6 +272,7 @@
                         "object",
                         "null"
                     ],
+                    "default": null,
                     "additionalProperties": {
                         "type": "string"
                     }
@@ -283,30 +291,35 @@
                             },
                             "image": {
                                 "type": "object",
+                                "default": null,
                                 "properties": {
                                     "registry": {
                                         "type": [
                                             "string",
                                             "null"
-                                        ]
+                                        ],
+                                        "default": null
                                     },
                                     "repository": {
                                         "type": [
                                             "string",
                                             "null"
-                                        ]
+                                        ],
+                                        "default": null
                                     },
                                     "tag": {
                                         "type": [
                                             "string",
                                             "null"
-                                        ]
+                                        ],
+                                        "default": null
                                     },
                                     "pullSecrets": {
                                         "type": [
                                             "array",
                                             "null"
                                         ],
+                                        "default": null,
                                         "items": {
                                             "type": "string"
                                         }
@@ -320,7 +333,8 @@
                                 ],
                                 "items": {
                                     "type": "string"
-                                }
+                                },
+                                "default": null
                             },
                             "args": {
                                 "type": [
@@ -329,7 +343,8 @@
                                 ],
                                 "items": {
                                     "type": "string"
-                                }
+                                },
+                                "default": null
                             },
                             "events": {
                                 "type": "array",
@@ -349,6 +364,7 @@
                                         "test-failure"
                                     ]
                                 },
+                                "default": null,
                                 "uniqueItems": true
                             },
                             "env": {
@@ -358,7 +374,8 @@
                                 ],
                                 "additionalProperties": {
                                     "type": "string"
-                                }
+                                },
+                                "default": null
                             },
                             "secret": {
                                 "type": [
@@ -367,7 +384,8 @@
                                 ],
                                 "additionalProperties": {
                                     "type": "string"
-                                }
+                                },
+                                "default": null
                             },
                             "resources": {
                                 "type": "object",
@@ -410,7 +428,8 @@
                     ],
                     "items": {
                         "type": "object"
-                    }
+                    },
+                    "default": []
                 }
             }
         },
@@ -430,13 +449,15 @@
                         "type": [
                             "object",
                             "null"
-                        ]
+                        ],
+                        "default": null
                     },
                     "annotations": {
                         "type": [
                             "object",
                             "null"
-                        ]
+                        ],
+                        "default": null
                     },
                     "image": {
                         "type": "object",
@@ -477,7 +498,8 @@
                         ],
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "default": null
                     },
                     "args": {
                         "type": [
@@ -486,7 +508,8 @@
                         ],
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "default": null
                     },
                     "replicas": {
                         "type": "object",
@@ -564,7 +587,8 @@
                         ],
                         "additionalProperties": {
                             "type": "string"
-                        }
+                        },
+                        "default": null
                     },
                     "secret": {
                         "type": [
@@ -573,19 +597,22 @@
                         ],
                         "additionalProperties": {
                             "type": "string"
-                        }
+                        },
+                        "default": null
                     },
                     "affinity": {
                         "type": [
                             "object",
                             "null"
-                        ]
+                        ],
+                        "default": null
                     },
                     "placement": {
                         "type": [
                             "object",
                             "null"
-                        ]
+                        ],
+                        "default": null
                     },
                     "extras": {
                         "type": [
@@ -594,7 +621,8 @@
                         ],
                         "items": {
                             "type": "object"
-                        }
+                        },
+                        "default": []
                     }
                 }
             }
@@ -606,7 +634,8 @@
             ],
             "items": {
                 "type": "object"
-            }
+            },
+            "default": []
         }
     }
 }
