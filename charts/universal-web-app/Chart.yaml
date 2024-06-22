@@ -3,9 +3,9 @@ name: universal-web-app
 version: 0.1.2
 description: |
   A getting started helm chart for running a any application, most compatible with web service
-  This chart runs a kubernetes deployment, service, jobs
+  This chart runs a kubernetes deployment, workers, jobs
 type: application
-icon: https://raw.githubusercontent.com/hotrungnhan/helm-charts/main/charts/icon.png
+icon: https://raw.githubusercontent.com/hotrungnhan/helm-charts/main/charts/universal-web-app/icon.png
 maintainers:
   - name: Ho Trung Nhan
     email: hotrungnhan29@gmail.com
