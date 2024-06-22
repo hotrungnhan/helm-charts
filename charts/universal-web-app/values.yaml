@@ -9,5 +9,3 @@ app:
     repository: traefik/whoami
     tag: latest
   port: 80
-  annotations: ~
-  labels: ~
