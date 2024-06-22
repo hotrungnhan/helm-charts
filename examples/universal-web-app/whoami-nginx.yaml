@@ -9,6 +9,11 @@ app:
     repository: traefik/whoami #
     tag: latest
   port: 80
+  ingress:
+    enabled: true
+    className: nginx
+    path: /
+    pathType: "Prefix"
   jobs:
     - enabled: true
       name: database-migration

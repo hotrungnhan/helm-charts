@@ -9,6 +9,14 @@ app:
     repository: traefik/whoami #
     tag: latest
   port: 80
+  ingress:
+    enabled: true
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/service.nativelb: "true"
+    className: traefik
+    path: /
+    pathType: "Prefix"
   jobs:
     - enabled: true
       name: database-migration

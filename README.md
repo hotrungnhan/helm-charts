@@ -12,44 +12,44 @@ This repository contains Helm charts for deploying various applications and serv
 ## Getting Started
 
 To use these Helm charts, follow the steps below:
+To add and deploy the Helm chart from the specified repository, you can follow these steps:
 
-1. **Clone the Repository:**
+### Step 1: Add the Helm Repository
 
-   ```bash
-   git clone https://github.com/hotrungnhan/helm-charts.git
-   cd helm-charts
-   ```
+First, add the Helm repository to your local Helm client:
 
-2. **Choose a Chart:**
+```sh
+helm repo add hotrungnhan https://hotrungnhan.github.io/helm-charts
+```
 
-   Navigate to the chart directory you are interested in. For example:
+### Step 2: Update Helm Repositories
 
-   ```bash
-   cd charts/universal/webapp
-   ```
+Update your local Helm chart repository cache to ensure you have the latest version of the charts:
 
-3. **Customize Chart:**
+```sh
+helm repo update
+```
 
-   Modify any changes file to customize the configuration according to your needs.
+### Step 3: Install the Chart 
 
-4. **Deploy the Chart:**
+Install the `universal-web-app` Helm chart using the specified release name `whoami`, yours should replace this values file with yours config.
 
-   Use Helm to deploy the chart to your Kubernetes cluster:
+```sh
+helm install whoami hotrungnhan/universal-web-app -f https://raw.githubusercontent.com/hotrungnhan/helm-charts/main/examples/universal-web-app/whoami.yaml
+```
 
-   ```bash
-   helm install my-release ./
-   ```
+### Summary of Commands
 
-   Replace `my-release` with the name you want to give to your deployment.
+Here’s a summary of all the commands you need to run:
 
-5. **Verify Deployment:**
+```sh
+helm repo add hotrungnhan https://hotrungnhan.github.io/helm-charts
+helm repo update
+helm install whoami hotrungnhan/universal-web-app -f https://raw.githubusercontent.com/hotrungnhan/helm-charts/main/examples/universal-web-app/whoami.yaml
+```
 
-   Check that the resources are created successfully:
+These steps will add the repository, install the chart with the name `whoami`, and apply the custom configuration from the provided YAML file.
 
-   ```bash
-   kubectl get pods
-   kubectl get services
-   ```
 
 ## Contributing
 
