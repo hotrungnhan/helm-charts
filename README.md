@@ -5,9 +5,9 @@ This repository contains Helm charts for deploying various applications and serv
 
 ## Available Charts
 
-| Chart Name                                      | Repository Path | Status |
-| ----------------------------------------------- | --------------- | ------ |
-| [universal-web-app](./charts/universal-web-app) | WIP             | WIP    |
+| Chart Name                                      | Repository Path                                                                         | Status      |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------- | ----------- |
+| [universal-web-app](./charts/universal-web-app) | [universal-web-app](https://artifacthub.io/packages/helm/hotrungnhan/universal-web-app) | Development |
 
 ## Getting Started
 
