@@ -56,380 +56,383 @@
                 }
             }
         },
-        "app": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "name": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "object",
-                    "default": null,
-                    "properties": {
-                        "registry": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "repository": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "tag": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "pullSecrets": {
-                            "type": [
-                                "array",
-                                "null"
-                            ],
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "commands": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "default": null,
-                    "items": {
+        "apps": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "name": {
                         "type": "string"
-                    }
-                },
-                "args": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "default": null,
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "port": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ],
-                    "default": 80
-                },
-                "annotations": {
-                    "type": [
-                        "object",
-                        "null"
-                    ],
-                    "default": null
-                },
-                "labels": {
-                    "type": [
-                        "object",
-                        "null"
-                    ]
-                },
-                "ingress": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false
-                        },
-                        "annotations": {
-                            "type": [
-                                "object",
-                                "null"
-                            ]
-                        },
-                        "labels": {
-                            "type": [
-                                "object",
-                                "null"
-                            ]
-                        },
-                        "className": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "host": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "path": {
-                            "type": "string",
-                            "default": "/"
-                        },
-                        "pathType": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "tls": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        }
-                    }
-                },
-                "replicas": {
-                    "type": "object",
-                    "properties": {
-                        "autoScalingEnabled": {
-                            "type": "boolean",
-                            "default": true
-                        },
-                        "replicaCount": {
-                            "type": "integer",
-                            "default": 1
-                        },
-                        "minReplicas": {
-                            "type": "integer",
-                            "default": 0
-                        },
-                        "maxReplicas": {
-                            "type": "integer",
-                            "default": 3
-                        },
-                        "targetCPUUtilizationPercentage": {
-                            "type": "integer",
-                            "default": 70
-                        },
-                        "targetMemoryUtilizationPercentage": {
-                            "type": "integer",
-                            "default": 70
-                        }
-                    }
-                },
-                "resources": {
-                    "type": [
-                        "object",
-                        "null"
-                    ],
-                    "properties": {
-                        "limits": {
-                            "type": [
-                                "object",
-                                "null"
-                            ],
-                            "properties": {
-                                "cpu": {
-                                    "type": "string",
-                                    "default": "100m"
-                                },
-                                "memory": {
-                                    "type": "string",
-                                    "default": "128Mi"
-                                }
-                            }
-                        },
-                        "requests": {
-                            "type": [
-                                "object",
-                                "null"
-                            ],
-                            "properties": {
-                                "cpu": {
-                                    "type": "string",
-                                    "default": "100m"
-                                },
-                                "memory": {
-                                    "type": "string",
-                                    "default": "128Mi"
+                    },
+                    "image": {
+                        "type": "object",
+                        "default": null,
+                        "properties": {
+                            "registry": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "repository": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "tag": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "pullSecrets": {
+                                "type": [
+                                    "array",
+                                    "null"
+                                ],
+                                "items": {
+                                    "type": "string"
                                 }
                             }
                         }
-                    }
-                },
-                "env": {
-                    "type": [
-                        "object",
-                        "null"
-                    ],
-                    "default": null,
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "secret": {
-                    "type": [
-                        "object",
-                        "null"
-                    ],
-                    "default": null,
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "jobs": {
-                    "type": "array",
-                    "items": {
+                    },
+                    "commands": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "default": null,
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "args": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "default": null,
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "port": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "default": 80
+                    },
+                    "annotations": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "default": null
+                    },
+                    "labels": {
+                        "type": [
+                            "object",
+                            "null"
+                        ]
+                    },
+                    "ingress": {
                         "type": "object",
                         "properties": {
                             "enabled": {
                                 "type": "boolean",
+                                "default": false
+                            },
+                            "annotations": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ]
+                            },
+                            "labels": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ]
+                            },
+                            "className": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "host": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "path": {
+                                "type": "string",
+                                "default": "/"
+                            },
+                            "pathType": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "tls": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "replicas": {
+                        "type": "object",
+                        "properties": {
+                            "autoScalingEnabled": {
+                                "type": "boolean",
                                 "default": true
                             },
-                            "name": {
-                                "type": "string"
+                            "replicaCount": {
+                                "type": "integer",
+                                "default": 1
                             },
-                            "image": {
-                                "type": "object",
-                                "default": null,
+                            "minReplicas": {
+                                "type": "integer",
+                                "default": 0
+                            },
+                            "maxReplicas": {
+                                "type": "integer",
+                                "default": 3
+                            },
+                            "targetCPUUtilizationPercentage": {
+                                "type": "integer",
+                                "default": 70
+                            },
+                            "targetMemoryUtilizationPercentage": {
+                                "type": "integer",
+                                "default": 70
+                            }
+                        }
+                    },
+                    "resources": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "limits": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ],
                                 "properties": {
-                                    "registry": {
-                                        "type": [
-                                            "string",
-                                            "null"
-                                        ],
-                                        "default": null
+                                    "cpu": {
+                                        "type": "string",
+                                        "default": "100m"
                                     },
-                                    "repository": {
-                                        "type": [
-                                            "string",
-                                            "null"
-                                        ],
-                                        "default": null
-                                    },
-                                    "tag": {
-                                        "type": [
-                                            "string",
-                                            "null"
-                                        ],
-                                        "default": null
-                                    },
-                                    "pullSecrets": {
-                                        "type": [
-                                            "array",
-                                            "null"
-                                        ],
-                                        "default": null,
-                                        "items": {
-                                            "type": "string"
-                                        }
+                                    "memory": {
+                                        "type": "string",
+                                        "default": "128Mi"
                                     }
                                 }
                             },
-                            "commands": {
-                                "type": [
-                                    "array",
-                                    "null"
-                                ],
-                                "items": {
-                                    "type": "string"
-                                },
-                                "default": null
-                            },
-                            "args": {
-                                "type": [
-                                    "array",
-                                    "null"
-                                ],
-                                "items": {
-                                    "type": "string"
-                                },
-                                "default": null
-                            },
-                            "events": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string",
-                                    "enum": [
-                                        "pre-install",
-                                        "post-install",
-                                        "pre-delete",
-                                        "post-delete",
-                                        "pre-upgrade",
-                                        "post-upgrade",
-                                        "pre-rollback",
-                                        "post-rollback",
-                                        "test",
-                                        "test-success",
-                                        "test-failure"
-                                    ]
-                                },
-                                "default": null,
-                                "uniqueItems": true
-                            },
-                            "env": {
+                            "requests": {
                                 "type": [
                                     "object",
                                     "null"
                                 ],
-                                "additionalProperties": {
-                                    "type": "string"
-                                },
-                                "default": null
-                            },
-                            "secret": {
-                                "type": [
-                                    "object",
-                                    "null"
-                                ],
-                                "additionalProperties": {
-                                    "type": "string"
-                                },
-                                "default": null
-                            },
-                            "resources": {
-                                "type": "object",
                                 "properties": {
-                                    "limits": {
-                                        "type": "object",
-                                        "properties": {
-                                            "cpu": {
-                                                "type": "string",
-                                                "default": "100m"
-                                            },
-                                            "memory": {
-                                                "type": "string",
-                                                "default": "128Mi"
+                                    "cpu": {
+                                        "type": "string",
+                                        "default": "100m"
+                                    },
+                                    "memory": {
+                                        "type": "string",
+                                        "default": "128Mi"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "env": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "default": null,
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "secret": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "default": null,
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "jobs": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "image": {
+                                    "type": "object",
+                                    "default": null,
+                                    "properties": {
+                                        "registry": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ],
+                                            "default": null
+                                        },
+                                        "repository": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ],
+                                            "default": null
+                                        },
+                                        "tag": {
+                                            "type": [
+                                                "string",
+                                                "null"
+                                            ],
+                                            "default": null
+                                        },
+                                        "pullSecrets": {
+                                            "type": [
+                                                "array",
+                                                "null"
+                                            ],
+                                            "default": null,
+                                            "items": {
+                                                "type": "string"
                                             }
                                         }
+                                    }
+                                },
+                                "commands": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "type": "string"
                                     },
-                                    "requests": {
-                                        "type": "object",
-                                        "properties": {
-                                            "cpu": {
-                                                "type": "string",
-                                                "default": "100m"
-                                            },
-                                            "memory": {
-                                                "type": "string",
-                                                "default": "128Mi"
+                                    "default": null
+                                },
+                                "args": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "default": null
+                                },
+                                "events": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pre-install",
+                                            "post-install",
+                                            "pre-delete",
+                                            "post-delete",
+                                            "pre-upgrade",
+                                            "post-upgrade",
+                                            "pre-rollback",
+                                            "post-rollback",
+                                            "test",
+                                            "test-success",
+                                            "test-failure"
+                                        ]
+                                    },
+                                    "default": null,
+                                    "uniqueItems": true
+                                },
+                                "env": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "default": null
+                                },
+                                "secret": {
+                                    "type": [
+                                        "object",
+                                        "null"
+                                    ],
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "default": null
+                                },
+                                "resources": {
+                                    "type": "object",
+                                    "properties": {
+                                        "limits": {
+                                            "type": "object",
+                                            "properties": {
+                                                "cpu": {
+                                                    "type": "string",
+                                                    "default": "100m"
+                                                },
+                                                "memory": {
+                                                    "type": "string",
+                                                    "default": "128Mi"
+                                                }
+                                            }
+                                        },
+                                        "requests": {
+                                            "type": "object",
+                                            "properties": {
+                                                "cpu": {
+                                                    "type": "string",
+                                                    "default": "100m"
+                                                },
+                                                "memory": {
+                                                    "type": "string",
+                                                    "default": "128Mi"
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-                },
-                "extras": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "items": {
-                        "type": "object"
                     },
-                    "default": []
+                    "extras": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "items": {
+                            "type": "object"
+                        },
+                        "default": []
+                    }
                 }
             }
         },
