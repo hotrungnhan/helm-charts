@@ -2,9 +2,11 @@
 App auto scaler
 */ -}}
 {{- range .Values.apps }}
+{{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
 {{- if $replicas.autoscalingEnabled }}
 {{- $deploymentName := .name }}
+---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -37,6 +39,7 @@ spec:
         name: memory
         targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage  }}
     {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 

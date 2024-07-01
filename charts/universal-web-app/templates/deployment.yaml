@@ -1,6 +1,8 @@
 # App
 {{- range .Values.apps }}
+{{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{- if (.enabled | default true) }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -75,6 +77,7 @@ spec:
               name: {{ include "application.fullname" $ }}-common
           {{- end }}
         {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
  # Worker

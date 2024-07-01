@@ -8,6 +8,7 @@
 ---
 {{- toYaml .}}
 {{- end }}
+{{- end }}
 
 {{range .Values.workers}}
 {{range .extras}}

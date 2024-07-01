@@ -1,4 +1,7 @@
 {{- range .Values.apps -}}
+{{- with (include "template.app" (. | default dict)| fromYaml )}}
+{{- if .port }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -20,4 +23,6 @@ spec:
       protocol: TCP
   selector:
     {{- include "get.labels.selector" (list $ .labels) | nindent 4 }}
+{{- end }}
+{{- end }}
 {{- end }}

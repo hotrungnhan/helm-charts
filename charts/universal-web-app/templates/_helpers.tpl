@@ -100,3 +100,52 @@ maxReplicas: {{ dig "maxReplicas" 3 . }}
 targetCPUUtilizationPercentage: {{ dig "targetCPUUtilizationPercentage" 70 . }}
 targetCPUUtilizationPercentage: {{ dig "targetMemoryUtilizationPercentage" 70 . }}
 {{- end }}
+
+{{- define "template.image" -}}
+registry: {{ dig "registry" nil .  }}
+repository: {{ dig "repository" nil .  }}
+tag: {{ dig "tag" nil .  }}
+pullSecrets: {{ dig "pullSecrets" list .  }}
+{{- end }}
+
+{{- define "template.ingress" -}}
+enabled: {{ dig "enabled" false .  }}
+annotations: {{ dig "annotations" nil .  }}
+labels: {{ dig "labels" nil .  }}
+className:  {{ dig "className" nil .  }}
+host: {{ dig "host" nil .  }}
+path:  {{ dig "path" nil .  }}
+pathType: {{ dig "pathType" nil .  }}
+tls: {{ dig "tls" nil .  }}
+{{- end }}
+
+
+{{- define "template.job" -}}
+enabled: {{ dig "enabled" false .  }}
+name: {{ dig "name" nil .  }}
+image: {{ dig "image" nil .  }}
+commands: {{ dig "commands" nil .  }}
+args: {{ dig "args" nil .  }}
+events: {{ dig "events" nil .  }}
+env: {{ dig "env" nil .  }}
+secret: {{ dig "secret" nil .  }}
+resources: {{ dig "resources" nil .  }}
+{{- end }}
+
+{{- define "template.app" -}}
+enabled: true
+  name: {{ dig "name" nil .  }}
+  image: {{ dig "image" nil .  }}
+  commands: {{ dig "commands" nil .  }}
+  args:  {{ dig "args" nil .  }}
+  port: {{ dig "ports" nil .  }}
+  annotations: {{ dig "annotations" nil .  }}
+  labels: {{ dig "labels" nil .  }}
+  ingress: {{ dig "ingress" nil .  }}
+  replicas: {{ dig "replicas" nil .  }}
+  resources: {{ dig "resources" nil .  }}
+  env: {{ dig "env" nil .  }}
+  secret: {{ dig "secret" nil .  }}
+  jobs: {{ dig "jobs" nil .  }}
+  extras: {{ dig "extras" nil .  }}
+{{- end }}

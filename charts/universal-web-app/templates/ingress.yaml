@@ -1,6 +1,7 @@
-{{- range $index, $app := .Values.apps}}
+{{- range $index, $app := .Values.apps -}}
 {{- with $app.ingress}}
-{{- if and (.enabled | default true) $app.port -}}
+{{- if and (.enabled | default true) $app.port }}
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -36,5 +37,6 @@ spec:
       {{- with .host }}
       host: {{ . | quote }}
       {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}

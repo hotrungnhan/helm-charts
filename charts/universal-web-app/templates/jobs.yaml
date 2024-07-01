@@ -1,5 +1,7 @@
 {{ range .Values.apps }}
+{{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{ range .jobs }}
+{{- with (include "template.jobs" (. | default dict)| fromYaml )}}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -69,5 +71,7 @@ spec:
           {{- end }}
           resources:
             {{- include "template.resources" (.resources | default dict ) | nindent 12}}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
