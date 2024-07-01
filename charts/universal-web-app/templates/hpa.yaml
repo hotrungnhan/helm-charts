@@ -1,7 +1,7 @@
 {{- /*
 App auto scaler
 */ -}}
-{{- with .Values.apps }}
+{{- range .Values.apps }}
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
 {{- if $replicas.autoscalingEnabled }}
 {{- $deploymentName := .name }}
