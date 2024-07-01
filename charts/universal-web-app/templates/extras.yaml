@@ -3,7 +3,8 @@
 {{- toYaml .}}
 {{- end }}
 
-{{range .Values.app.extras}}
+{{range .Values.apps}}
+{{range .extras}}
 ---
 {{- toYaml .}}
 {{- end }}

@@ -1,4 +1,5 @@
-{{ range .Values.app.jobs }}
+{{ range .Values.apps }}
+{{ range .jobs }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -68,4 +69,5 @@ spec:
           {{- end }}
           resources:
             {{- include "template.resources" (.resources | default dict ) | nindent 12}}
+{{- end }}
 {{- end }}

@@ -1,5 +1,5 @@
 # App
-{{- with .Values.app }}
+{{- range .Values.apps }}
 {{- if (.enabled | default true) }}
 apiVersion: apps/v1
 kind: Deployment
