@@ -1,103 +1,38 @@
+# Stateless application
 common:
-  annotations: {}
-  labels: {}
-  env: {}
-  secret: {}
   image:
-    registry: "registry-1.docker.io"
-    repository: "traefik/whoami"
-    tag: "latest"
+    registry: registry-1.docker.io
 apps:
   - enabled: true
-    name: "my-app"
+    name: whoami
     image:
-      registry: ~
-      repository: ~
-      tag: ~
-      pullSecrets: []
-    commands: []
-    args: []
+      repository: traefik/whoami #
+      tag: latest
     port: 80
-    annotations: {}
-    labels: {}
     ingress:
-      enabled: false
-      annotations: {}
-      labels: {}
-      className: "nginx"
-      host: "my-app.example.com"
-      path: "/app"
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/service.nativelb: "true"
+      className: traefik
+      path: /
       pathType: "Prefix"
-      tls: ""
-    replicas:
-      autoScalingEnabled: false
-      replicaCount: 1
-      minReplicas: 1
-      maxReplicas: 5
-      targetCPUUtilizationPercentage: 80
-      targetMemoryUtilizationPercentage: 75
-    resources:
-      limits:
-        cpu: "200m"
-        memory: "256Mi"
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-    env:
-      APP_ENV_VAR: "value"
-    secret: {}
     jobs:
-      - enabled: false
-        name: "job#1"
+      - enabled: true
+        name: database-migration
         image:
-          registry: ~
-          repository: ~
-          tag: ~
-          pullSecrets: []
-        commands: ~
-        args: []
-        events: []
-        env: {}
-        secret: {}
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-    extras: ~
-
+          repository: library/busybox #
+          tag: latest
+        commands:
+          - sleep
+          - "1"
+        events: # helm event
+          - pre-install
 workers:
-  - enabled: false
-    name: "worker#1"
-    labels: {}
-    annotations: {}
+  - enabled: true
+    name: "top"
     image:
-      registry: ~
-      repository: ~
-      tag: ~
-      pullSecrets: []
-    commands: []
-    args: []
-    replicas:
-      autoScalingEnabled: false
-      replicaCount: 1
-      minReplicas: 1
-      maxReplicas: 4
-      targetCPUUtilizationPercentage: 75
-      targetMemoryUtilizationPercentage: 75
-    resources:
-      limits:
-        cpu: "150m"
-        memory: "256Mi"
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-    env: {}
-    secret: {}
-    affinity: ~
-    placement: ~
-    extras: ~
-
-extras: ~
+      repository: library/busybox #
+      tag: "latest"
+    commands:
+      - /bin/top

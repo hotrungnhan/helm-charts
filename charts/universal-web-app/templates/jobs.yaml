@@ -1,21 +1,25 @@
+# Jobs 
 {{ range .Values.apps }}
 {{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{ range .jobs }}
-{{- with (include "template.jobs" (. | default dict)| fromYaml )}}
+{{- with (include "template.job" (. | default dict)| fromYaml )}}
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{printf "%s-job-%s" (include "application.fullname" $) .name}}
   {{- with include "get.labels.full" (list $ .labels) }}
-  labels:
-    {{- . | nindent 4 }}
+  {{- . | nindent 2 }}
   {{- end}}
+  {{- if or (include "get.annotations" (list $ .annotations)) .events }}
   annotations: 
     {{- with include "get.annotations" (list $ .annotations) }}
-    {{ . | nindent 4 }}
+    {{- . | nindent 4 }}
     {{- end}}
+    {{- if .events}}
     helm.sh/hook: {{ join "," .events }}
+    {{- end }}
+  {{- end }}
 spec:
   {{- with .backoffLimit | default 1}}
   backoffLimit: {{ . }}
@@ -31,9 +35,8 @@ spec:
         {{- . | nindent 8 }}
       {{- end}} 
     spec:
-
       restartPolicy: Never
-      {{- with (include "get.image_pull_secrets" (list $ .image.pullSecrets) )}}
+      {{- with (include "get.image_pull_secrets" (list $ .image) )}}
       imagePullSecrets: 
         {{- . | nindent 8}}
       {{- end }}

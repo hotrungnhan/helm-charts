@@ -1,6 +1,5 @@
-{{- /*
-App auto scaler
-*/ -}}
+# HPA
+## App
 {{- range .Values.apps }}
 {{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
@@ -12,13 +11,11 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $deploymentName }}
   {{- with include "get.labels.full" (list $ .labels) }}
-  labels:
-    {{- . | nindent 4 }}
+  {{- . | nindent 2 }}
   {{- end}}
   {{- with include "get.annotations" (list $ .annotations) }}
-  annotations: 
-    {{- . | nindent 4 }}
-  {{- end}} 
+  {{ . | nindent 2 }}
+  {{- end}}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -43,9 +40,7 @@ spec:
 {{- end }}
 {{- end }}
 
-{{- /*
-Worker auto scaler
-*/ -}}
+## Worker
 {{- range .Values.workers}}
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
 {{- if $replicas.autoscalingEnabled }}
@@ -55,13 +50,11 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $deploymentName }}
   {{- with include "get.labels.full" (list $ .labels) }}
-  labels:
-    {{- . | nindent 4 }}
+  {{- . | nindent 2 }}
   {{- end}}
   {{- with include "get.annotations" (list $ .annotations) }}
-  annotations: 
-    {{- . | nindent 4 }}
-  {{- end}} 
+  {{ . | nindent 2 }}
+  {{- end}}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

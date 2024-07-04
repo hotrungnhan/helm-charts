@@ -1,24 +1,23 @@
-{{- range $index, $app := .Values.apps -}}
-{{- with $app.ingress}}
-{{- if and (.enabled | default true) $app.port }}
+# Ingress 
+{{- range $index, $app := .Values.apps }}
+{{- with (include "template.ingress" ($app.ingress | default dict) | fromYaml )}}
+{{- if and .enabled $app.port }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "application.fullname" $ }}
   {{- with include "get.labels.full" (list $ .labels) }}
-  labels:
-    {{- . | nindent 4 }}
+  {{- . | nindent 2 }}
   {{- end}}
   {{- with include "get.annotations" (list $ .annotations) }}
-  annotations: 
-    {{- . | nindent 4 }}
-  {{- end}} 
+  {{- . | nindent 2 }}
+  {{- end}}
 spec:
   {{- with .className  }}
   ingressClassName: {{ . }}
   {{- end }}
-  {{- if .tls  }}
+  {{- if and .tls .host  }}
   tls:
   - hosts: 
     - {{ .host }}
