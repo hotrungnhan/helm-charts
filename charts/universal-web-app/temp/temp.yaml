@@ -1,4 +1,23 @@
 ---
+# Source: universal-web-app/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: abc
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: abc
+---
 # Source: universal-web-app/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -26,7 +45,7 @@ spec:
         args:
           
         ports:
-          - containerPort: 
+          - containerPort: 80
             protocol: TCP
         resources:
           limits:
@@ -79,6 +98,10 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
     app.kubernetes.io/chart: universal-web-app-0.1.8
+  
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/service.nativelb: "true"
 spec:
   ingressClassName: traefik
   tls:
@@ -118,6 +141,9 @@ spec:
 ---
 # Source: universal-web-app/templates/secret.yaml
 # Secret
+---
+# Source: universal-web-app/templates/service.yaml
+# Services
 ---
 # Source: universal-web-app/templates/jobs.yaml
 apiVersion: batch/v1

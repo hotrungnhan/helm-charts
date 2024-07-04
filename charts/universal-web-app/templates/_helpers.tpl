@@ -38,15 +38,11 @@ labels:
   app.kubernetes.io/managed-by: Helm
   app.kubernetes.io/release-name: {{ include "application.fullname" $root }}
   app.kubernetes.io/chart: {{ include "application.chart" $root }}
-  {{- with  $root.Values.common.labels}}
-  {{- if . }}
-  {{- toYaml . }}
+  {{- if $root.Values.common.labels }}
+  {{- toYaml $root.Values.common.labels }}
   {{- end }}
-  {{- end }}
-  {{- with $current }}
-  {{- if . }}
-  {{- toYaml . }}
-  {{- end }}
+  {{- if $current }}
+  {{- toYaml $current }}
   {{- end }}
 {{- end }}
 
@@ -56,14 +52,14 @@ labels:
 {{- define "get.annotations" -}}
 {{- $root := index . 0 -}}
 {{- $current := index . 1 -}}
-{{- with  $root.Values.common.annotations }}
 {{- if or $root.Values.common.annotations $current }}
 annotations: 
-  {{- toYaml . | nindent 2}}
+  {{- if $root.Values.common.annotations }}
+  {{- toYaml $root.Values.common.annotations | nindent 2}}
   {{- end }}
-  {{- with $current }}
-  {{- toYaml . | nindent 2}}
-{{- end }}
+  {{- if $current }}
+  {{- toYaml $current | nindent 2}}
+  {{- end }}
 {{- end }}
 {{- end }}
 
@@ -122,13 +118,13 @@ enabled: {{ dig "enabled" false .  }}
 {{- with (dig "annotations" nil .)}}
 {{- if . }}
 annotations:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "labels" nil .)}}
 {{- if . }}
 labels:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 className:  {{ dig "className" nil .  }}
@@ -197,7 +193,7 @@ image:
 {{- end }}
 commands: {{ dig "commands" nil .  }}
 args:  {{ dig "args" nil .  }}
-port: {{ dig "ports" nil .  }}
+port: {{ dig "port" nil .  }}
 {{- with (dig "annotations" nil .)}}
 {{- if . }}
 annotations:
