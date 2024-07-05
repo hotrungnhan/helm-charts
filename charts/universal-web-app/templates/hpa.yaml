@@ -13,28 +13,29 @@ metadata:
   {{- . | nindent 2 }}
   {{- end}}
   {{- with include "get.annotations" (list $ .annotations) }}
-  {{ . | nindent 2 }}
+  {{- . | nindent 2 }}
   {{- end}}
 spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ $deploymentName }}
-  minReplicas: {{ $replicas.minReplicas }}
-  maxReplicas: {{ $replicas.maxReplicas }}
-  metrics:
-    {{- if $replicas.targetCPUUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: cpu
-        targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage  }}
-    {{- end }}
-    {{- if $replicas.targetMemoryUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: memory
-        targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage  }}
-    {{- end }}
+  template:
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: {{ $deploymentName }}
+    minReplicas: {{ $replicas.minReplicas }}
+    maxReplicas: {{ $replicas.maxReplicas }}
+    metrics:
+      {{- if $replicas.targetCPUUtilizationPercentage }}
+      - type: Resource
+        resource:
+          name: cpu
+          targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage  }}
+      {{- end }}
+      {{- if $replicas.targetMemoryUtilizationPercentage }}
+      - type: Resource
+        resource:
+          name: memory
+          targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage  }}
+      {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -52,27 +53,28 @@ metadata:
   {{- . | nindent 2 }}
   {{- end}}
   {{- with include "get.annotations" (list $ .annotations) }}
-  {{ . | nindent 2 }}
+  {{- . | nindent 2 }}
   {{- end}}
 spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ $deploymentName }}
-  minReplicas: {{ $replicas.minReplicas }}
-  maxReplicas: {{ $replicas.maxReplicas }}
-  metrics:
-    {{- if $replicas.targetCPUUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: cpu
-        targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage }}
-    {{- end }}
-    {{- if $replicas.targetMemoryUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: memory
-        targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage }}
-    {{- end }}
+  template: 
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: {{ $deploymentName }}
+    minReplicas: {{ $replicas.minReplicas }}
+    maxReplicas: {{ $replicas.maxReplicas }}
+    metrics:
+      {{- if $replicas.targetCPUUtilizationPercentage }}
+      - type: Resource
+        resource:
+          name: cpu
+          targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage }}
+      {{- end }}
+      {{- if $replicas.targetMemoryUtilizationPercentage }}
+      - type: Resource
+        resource:
+          name: memory
+          targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage }}
+      {{- end }}
 {{- end }}
 {{- end }}

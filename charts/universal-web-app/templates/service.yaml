@@ -10,7 +10,7 @@ metadata:
   {{- . | nindent 2 }}
   {{- end}}
   {{- with include "get.annotations" (list $ .annotations) }}
-  {{ . | nindent 2 }}
+  {{- . | nindent 2 }}
   {{- end}}
 spec:
   type: ClusterIP
