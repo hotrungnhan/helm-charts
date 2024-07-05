@@ -3,7 +3,6 @@
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
 {{- if $replicas.autoScalingEnabled }}
 {{- $deploymentName := .name }}
-
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler

@@ -11,8 +11,6 @@ apps:
     port: 80
     replicas:  
       autoScalingEnabled: true
-      maxReplicas: 3
-      minReplicas: 1
     jobs:
       - enabled: true
         name: database-migration

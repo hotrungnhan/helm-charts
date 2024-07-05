@@ -99,7 +99,7 @@ requests:
 {{- define "template.replicas" -}}
 autoScalingEnabled: {{ dig "autoScalingEnabled" "" .  }}
 replicaCount: {{ dig "replicaCount" 1 . }}
-minReplicas: {{ dig "minReplicas" 0 . }}
+minReplicas: {{ dig "minReplicas" 1 . }}
 maxReplicas: {{ dig "maxReplicas" 3 . }}
 targetCPUUtilizationPercentage: {{ dig "targetCPUUtilizationPercentage" 70 . }}
 targetCPUUtilizationPercentage: {{ dig "targetMemoryUtilizationPercentage" 70 . }}
