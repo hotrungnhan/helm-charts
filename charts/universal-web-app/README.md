@@ -85,75 +85,75 @@ common:
     repository: "traefik/whoami"
     tag: "latest"
 
-app:
-  enabled: true
-  name: "my-app"
-  image:
-    registry: "my-registry"
-    repository: "my-repo"
-    tag: "my-tag"
-    pullSecrets: ["my-secret"]
-  commands: ["cmd1", "cmd2"]
-  args: ["arg1", "arg2"]
-  port: 8080
-  annotations:
-    app-annotation: "value"
-  labels:
-    app-label: "value"
-  ingress:
-    enabled: true
-    annotations: 
-      ingress-annotation: "value"
-    labels: 
-      ingress-label: "value"
-    className: "nginx"
-    host: "my-app.example.com"
-    path: "/app"
-    pathType: "Prefix"
-    tls: ""
-  replicas:
-    autoScalingEnabled: true
-    replicaCount: 3
-    minReplicas: 1
-    maxReplicas: 5
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 75
-  resources:
-    limits:
-      cpu: "200m"
-      memory: "256Mi"
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-  env: 
-    APP_ENV_VAR: "value"
-  secret: 
-    APP_SECRET_KEY: "secret_value"
-  jobs:
-    - enabled: true
-      name: "my-job"
-      image:
-        registry: "job-registry"
-        repository: "job-repo"
-        tag: "job-tag"
-        pullSecrets: ["job-secret"]
-      commands: ["job-cmd1", "job-cmd2"]
-      args: ["job-arg1", "job-arg2"]
-      events: ["pre-install", "post-install"]
-      env:
-        JOB_ENV_VAR: "value"
-      secret:
-        JOB_SECRET_KEY: "secret_value"
-      resources:
-        limits:
-          cpu: "200m"
-          memory: "256Mi"
-        requests:
-          cpu: "100m"
-          memory: "128Mi"
-  extras:
-    - key: "extra_key"
-      value: "extra_value"
+apps:
+  - enabled: true
+    name: "my-app"
+    image:
+      registry: "my-registry"
+      repository: "my-repo"
+      tag: "my-tag"
+      pullSecrets: ["my-secret"]
+    commands: ["cmd1", "cmd2"]
+    args: ["arg1", "arg2"]
+    port: 8080
+    annotations:
+      app-annotation: "value"
+    labels:
+      app-label: "value"
+    ingress:
+      enabled: true
+      annotations: 
+        ingress-annotation: "value"
+      labels: 
+        ingress-label: "value"
+      className: "nginx"
+      host: "my-app.example.com"
+      path: "/app"
+      pathType: "Prefix"
+      tls: ""
+    replicas:
+      autoScalingEnabled: true
+      replicaCount: 3
+      minReplicas: 1
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 75
+    resources:
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+    env: 
+      APP_ENV_VAR: "value"
+    secret: 
+      APP_SECRET_KEY: "secret_value"
+    jobs:
+      - enabled: true
+        name: "my-job"
+        image:
+          registry: "job-registry"
+          repository: "job-repo"
+          tag: "job-tag"
+          pullSecrets: ["job-secret"]
+        commands: ["job-cmd1", "job-cmd2"]
+        args: ["job-arg1", "job-arg2"]
+        events: ["pre-install", "post-install"]
+        env:
+          JOB_ENV_VAR: "value"
+        secret:
+          JOB_SECRET_KEY: "secret_value"
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+    extras:
+      - key: "extra_key"
+        value: "extra_value"
 
 workers:
   - enabled: true
@@ -216,7 +216,7 @@ extras:
 | repository  | string         | "traefik/whoami"       | Image repository          |
 | tag         | string         | "latest"               | Image tag                 |
 
-### Configuration Table for `app`
+### Configuration Table for `apps`
 
 | Key                                        | Type            | Default | Description                           |
 | ------------------------------------------ | --------------- | ------- | ------------------------------------- |
