@@ -71,7 +71,7 @@ App Image| args [$  .image]
 {{- $current := index . 1 -}}
 {{- $image := $current | default dict }}
 {{- printf "%s/%s:%s" ($image.registry | default $root.Values.common.image.registry) ($image.repository | default $root.Values.common.image.repository) ($image.tag | default $root.Values.common.image.tag)  }}
-{{- end }}Ư
+{{- end }}
 
 {{/*
 Pull Secret | args [$  .pullSecrets]
@@ -325,7 +325,7 @@ secret:
   {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
-{{- with (dig "extras" nil .)}}
+{{- with (dig "secret" nil .)}}
 {{- if . }}
 extras:
   {{- . | toYaml |  nindent 2 }}
