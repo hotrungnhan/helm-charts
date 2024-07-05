@@ -1,6 +1,6 @@
 apiVersion: v2
 name: universal-web-app
-version: 0.1.8
+version: 0.2.0
 description: |
   A getting started helm chart for running a any application, most compatible with web service
   This chart runs a kubernetes deployment, workers, jobs
