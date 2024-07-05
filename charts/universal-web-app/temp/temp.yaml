@@ -7,7 +7,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   type: ClusterIP
   ports:
@@ -27,7 +27,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   type: ClusterIP
   ports:
@@ -46,7 +46,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   selector:
     matchLabels:
@@ -88,7 +88,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   selector:
     matchLabels:
@@ -132,7 +132,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   replicas: 1
   selector:
@@ -170,7 +170,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -192,7 +192,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -216,7 +216,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -242,7 +242,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -292,7 +292,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   annotations:
     helm.sh/hook-weight: "-9999"
     helm.sh/hook: "pre-install"
@@ -308,7 +308,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   annotations:
     helm.sh/hook-weight: "-9999"
     helm.sh/hook: "pre-install"
@@ -324,7 +324,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   annotations:
     helm.sh/hook-weight: "-9999"
     helm.sh/hook: "pre-install"
@@ -339,7 +339,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   annotations:
     helm.sh/hook: pre-install
 spec:
@@ -379,7 +379,7 @@ metadata:
   labels: 
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/release-name: abc
-    app.kubernetes.io/chart: universal-web-app-0.1.8
+    app.kubernetes.io/chart: universal-web-app-0.2.0
   annotations:
     helm.sh/hook: pre-install
 spec:

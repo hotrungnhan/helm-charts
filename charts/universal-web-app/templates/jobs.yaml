@@ -1,4 +1,3 @@
-# Jobs 
 {{ range .Values.apps }}
 {{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{ range .jobs }}

@@ -1,4 +1,3 @@
-# Extra
 {{range .Values.extras}}
 ---
 {{- toYaml .}}

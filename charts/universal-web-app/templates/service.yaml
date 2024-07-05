@@ -1,7 +1,6 @@
 {{- range .Values.apps -}}
 {{- with (include "template.app" . )| fromYaml }}
 {{- if .port }}
-# Services
 ---
 apiVersion: v1
 kind: Service

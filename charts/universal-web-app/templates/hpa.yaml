@@ -1,5 +1,3 @@
-# HPA
-## App
 {{- range .Values.apps }}
 {{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}

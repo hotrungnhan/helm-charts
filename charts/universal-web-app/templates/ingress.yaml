@@ -1,4 +1,3 @@
-# Ingress 
 {{- range $index, $app := .Values.apps }}
 {{- with (include "template.ingress" ($app.ingress | default dict) | fromYaml )}}
 {{- if and .enabled $app.port }}
