@@ -9,10 +9,6 @@ apps:
       repository: traefik/whoami #
       tag: latest
     port: 80
-    replicas: 
-      autoScalingEnabled: true
-      minReplicas: 1
-      maxReplicas: 4
     jobs:
       - enabled: true
         name: database-migration
