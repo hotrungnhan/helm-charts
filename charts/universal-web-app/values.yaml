@@ -2,66 +2,17 @@
 common:
   image:
     registry: registry-1.docker.io
-  secret: 
-    abc: abcavc
-  env: 
-    abc: abcabx
 apps:
   - enabled: true
     name: whoami
     image:
       repository: traefik/whoami #
       tag: latest
-    secret: 
-      xyz: xyzabcs
-    env: 
-      xyz: xyz
     port: 80
     replicas: 
       autoScalingEnabled: true
       minReplicas: 1
       maxReplicas: 4
-    ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/service.nativelb: "true"
-      className: traefik
-      path: /
-      pathType: "Prefix"
-    jobs:
-      - enabled: true
-        name: database-migration
-        image:
-          repository: library/busybox #
-          tag: latest
-        commands:
-          - sleep
-          - "1"
-        events: # helm event
-          - pre-install
-  - enabled: true
-    name: whoami
-    image:
-      repository: traefik/whoami #
-      tag: latest
-    secret: 
-      xyz: xyzabcs
-    env: 
-      xyz: xyz
-    port: 80
-    replicas: 
-      autoScalingEnabled: true
-      minReplicas: 1
-      maxReplicas: 4
-    ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/service.nativelb: "true"
-      className: traefik
-      path: /
-      pathType: "Prefix"
     jobs:
       - enabled: true
         name: database-migration
