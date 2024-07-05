@@ -46,11 +46,13 @@ spec:
           imagePullPolicy: Always
           {{- if or $.Values.common.env .env }}
           env:
-            {{- with $.Values.common.env }}
-            {{- toYaml . | nindent 12 }}
+            {{- range $k,$v := $.Values.common.env}}
+            - name: {{$k}}
+              value: {{$v}}
             {{- end }}
-            {{- with .env }}
-            {{- toYaml . | nindent 12 }}
+            {{- range $k,$v := .env}}
+            - name: {{$k}}
+              value: {{$v}}
             {{- end }}
           {{- end }}
           {{- if or .secret $.Values.common.secret }}

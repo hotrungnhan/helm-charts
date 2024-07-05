@@ -46,13 +46,13 @@ spec:
         {{- with .commands }}
         {{- if . }}
         command:
-          {{- . | nindent 10 }}
+          {{- toYaml . | nindent 10 }}
         {{- end }}
         {{- end }}
         {{- with .args }}
         {{- if . }}
         args:
-          {{- . | nindent 10 }}
+          {{- toYaml . | nindent 10 }}
         {{- end }}
         {{- end }}
         {{- with .port}}
@@ -64,11 +64,13 @@ spec:
           {{- include "template.resources" (.resources | default dict ) | nindent 10}}
         {{- if or $.Values.common.env .env }}
         env:
-          {{- with $.Values.common.env }}
-          {{- toYaml . | nindent 12 }}
+          {{- range $k,$v := $.Values.common.env}}
+          - name: {{$k}}
+            value: {{$v}}
           {{- end }}
-          {{- with .env }}
-          {{- toYaml . | nindent 12 }}
+          {{- range $k,$v := .env}}
+          - name: {{$k}}
+            value: {{$v}}
           {{- end }}
         {{- end }}
         {{- if or .secret $.Values.common.secret }}
@@ -88,6 +90,7 @@ spec:
 
 ## Worker
 {{- range .Values.workers }}
+{{- with (include "template.worker" (. | default dict)| fromYaml )}}
 ---
 {{- if (.enabled | default true) }}
 apiVersion: apps/v1
@@ -130,24 +133,22 @@ spec:
         - name: {{printf "worker-%s" .name}}
           image: {{ include "get.image_url" (list $ .image) }}
           {{- with .commands }}
-          {{- if . }}
           command:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- end }}
           {{- with .args }}
-          {{- if . }}
           args:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- end }}
           {{- if or $.Values.common.env .env }}
           env:
-            {{- with $.Values.common.env }}
-            {{- toYaml . | nindent 12 }}
+            {{- range $k,$v := $.Values.common.env}}
+            - name: {{$k}}
+              value: {{$v}}
             {{- end }}
-            {{- with .env }}
-            {{- toYaml . | nindent 12 }}
+            {{- range $k,$v := .env}}
+            - name: {{$k}}
+              value: {{$v}}
             {{- end }}
           {{- end }}
           {{- if or .secret $.Values.common.secret }}
@@ -164,4 +165,5 @@ spec:
           resources:
             {{- include "template.resources" (.resources | default dict ) | nindent 12}}
 {{- end }}    
+{{- end }} 
 {{- end }} 

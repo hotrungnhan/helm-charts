@@ -17,6 +17,26 @@ spec:
       protocol: TCP
   selector:
     app.kubernetes.io/name: abc
+# Services
+---
+# Source: universal-web-app/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: abc
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: abc
 ---
 # Source: universal-web-app/templates/deployment.yaml
 apiVersion: apps/v1
@@ -28,7 +48,6 @@ metadata:
     app.kubernetes.io/release-name: abc
     app.kubernetes.io/chart: universal-web-app-0.1.8
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: abc
@@ -40,10 +59,6 @@ spec:
       containers: 
       - name:  app-whoami
         image: registry-1.docker.io/traefik/whoami:latest
-        command:
-          
-        args:
-          
         ports:
           - containerPort: 80
             protocol: TCP
@@ -54,6 +69,58 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
+        env:
+          - name: abc
+            value: abcabx
+          - name: xyz
+            value: xyz
+        envFrom:
+          - secretRef:
+              name: abc-app
+          - secretRef:
+              name: abc-common
+---
+# Source: universal-web-app/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: abc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: abc
+    spec:
+      containers: 
+      - name:  app-whoami
+        image: registry-1.docker.io/traefik/whoami:latest
+        ports:
+          - containerPort: 80
+            protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        env:
+          - name: abc
+            value: abcabx
+          - name: xyz
+            value: xyz
+        envFrom:
+          - secretRef:
+              name: abc-app
+          - secretRef:
+              name: abc-common
 
 ## Worker
 ---
@@ -81,6 +148,12 @@ spec:
           image: registry-1.docker.io/library/busybox:latest
           command:
             - /bin/top
+          env:
+            - name: abc
+              value: abcabx
+          envFrom:
+            - secretRef:
+                name: abc-common
           resources:
             limits:
               cpu: 100m
@@ -88,6 +161,52 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+---
+# Source: universal-web-app/templates/hpa.yaml
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: whoami
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: whoami
+  minReplicas: 1
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 70
+---
+# Source: universal-web-app/templates/hpa.yaml
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: whoami
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: whoami
+  minReplicas: 1
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 70
+
+## Worker
 ---
 # Source: universal-web-app/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -104,10 +223,6 @@ metadata:
     traefik.ingress.kubernetes.io/service.nativelb: "true"
 spec:
   ingressClassName: traefik
-  tls:
-  - hosts: 
-    - 
-    secretName:  
   rules:
     - http:
         paths:
@@ -118,7 +233,32 @@ spec:
                 name: abc
                 port:
                   number: 80
-      host: ""
+---
+# Source: universal-web-app/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: abc
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+  
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/service.nativelb: "true"
+spec:
+  ingressClassName: traefik
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix 
+            backend:
+              service:
+                name: abc
+                port:
+                  number: 80
 ---
 # Source: universal-web-app/templates/deployment.yaml
 # Deployment
@@ -130,8 +270,6 @@ spec:
 # Source: universal-web-app/templates/hpa.yaml
 # HPA
 ## App
-
-## Worker
 ---
 # Source: universal-web-app/templates/ingress.yaml
 # Ingress
@@ -144,6 +282,54 @@ spec:
 ---
 # Source: universal-web-app/templates/service.yaml
 # Services
+---
+# Source: universal-web-app/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: abc-common
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+  annotations:
+    helm.sh/hook-weight: "-9999"
+    helm.sh/hook: "pre-install"
+data:
+  abc: YWJjYXZj
+---
+# Source: universal-web-app/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: whoami-app
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+  annotations:
+    helm.sh/hook-weight: "-9999"
+    helm.sh/hook: "pre-install"
+data:
+  xyz: eHl6YWJjcw==
+---
+# Source: universal-web-app/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: whoami-app
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+  annotations:
+    helm.sh/hook-weight: "-9999"
+    helm.sh/hook: "pre-install"
+data:
+  xyz: eHl6YWJjcw==
 ---
 # Source: universal-web-app/templates/jobs.yaml
 apiVersion: batch/v1
@@ -168,6 +354,52 @@ spec:
         - name: job-database-migration
           image: registry-1.docker.io/library/busybox:latest
           imagePullPolicy: Always
+          env:
+            - name: abc
+              value: abcabx
+          envFrom:
+            - secretRef:
+                name: abc-common
+          command:
+            - sleep
+            - "1"
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+---
+# Source: universal-web-app/templates/jobs.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: abc-job-database-migration
+  labels: 
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/release-name: abc
+    app.kubernetes.io/chart: universal-web-app-0.1.8
+  annotations:
+    helm.sh/hook: pre-install
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: abc 
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: job-database-migration
+          image: registry-1.docker.io/library/busybox:latest
+          imagePullPolicy: Always
+          env:
+            - name: abc
+              value: abcabx
+          envFrom:
+            - secretRef:
+                name: abc-common
           command:
             - sleep
             - "1"

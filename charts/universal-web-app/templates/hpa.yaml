@@ -3,8 +3,9 @@
 {{- range .Values.apps }}
 {{- with (include "template.app" (. | default dict)| fromYaml )}}
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
-{{- if $replicas.autoscalingEnabled }}
+{{- if $replicas.autoScalingEnabled }}
 {{- $deploymentName := .name }}
+
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler

@@ -128,10 +128,18 @@ labels:
 {{- end }}
 {{- end }}
 className:  {{ dig "className" nil .  }}
-host: {{ dig "host" nil .  }}
+{{- with (dig "host" nil .)}}
+{{- if . }}
+host: {{ . }}
+{{- end }}
+{{- end }}
+{{- with (dig "tls" nil .)}}
+{{- if . }}
+tls: {{ . }}
+{{- end }}
+{{- end }}
 path:  {{ dig "path" nil .  }}
 pathType: {{ dig "pathType" nil .  }}
-tls: {{ dig "tls" nil .  }}
 {{- end }}
 
 
@@ -141,43 +149,43 @@ name: {{ dig "name" nil .  }}
 {{- with (dig "image" nil .)}}
 {{- if . }}
 image:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "commands" nil .)}}
 {{- if . }}
 commands:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "args" nil .)}}
 {{- if . }}
 args:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "events" nil .)}}
 {{- if . }}
 events:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "env" nil .)}}
 {{- if . }}
 env:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "secret" nil .)}}
 {{- if . }}
 secret:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "resources" nil .)}}
 {{- if . }}
 resources:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -188,22 +196,32 @@ name: {{ dig "name" nil .  }}
 {{- with (dig "image" nil .)}}
 {{- if . }}
 image:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
-commands: {{ dig "commands" nil .  }}
-args:  {{ dig "args" nil .  }}
+{{- with (dig "commands" nil .)}}
+{{- if . }}
+commands:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "args" nil .)}}
+{{- if . }}
+args:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
 port: {{ dig "port" nil .  }}
 {{- with (dig "annotations" nil .)}}
 {{- if . }}
 annotations:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "labels" nil .)}}
 {{- if . }}
 labels:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "ingress" nil .)}}
@@ -214,37 +232,103 @@ ingress: {{ dig "ingress" nil .  }}
 {{- with (dig "replicas" nil .)}}
 {{- if . }}
 replicas:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "resources" nil .)}}
 {{- if . }}
 resources:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "env" nil .)}}
 {{- if . }}
 env:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "secret" nil .)}}
 {{- if . }}
 secret:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "jobs" nil .)}}
 {{- if . }}
 jobs:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- with (dig "extras" nil .)}}
 {{- if . }}
 extras:
-  {{ . | toYaml |  nindent 2 }}
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+
+{{- define "template.worker" -}}
+enabled: {{ dig "enabled" false .  }}
+name: {{ dig "name" nil .  }}
+{{- with (dig "image" nil .)}}
+{{- if . }}
+image:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "commands" nil .)}}
+{{- if . }}
+commands:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "args" nil .)}}
+{{- if . }}
+args:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "annotations" nil .)}}
+{{- if . }}
+annotations:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "labels" nil .)}}
+{{- if . }}
+labels:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "replicas" nil .)}}
+{{- if . }}
+replicas:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "resources" nil .)}}
+{{- if . }}
+resources:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "env" nil .)}}
+{{- if . }}
+env:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "secret" nil .)}}
+{{- if . }}
+secret:
+  {{- . | toYaml |  nindent 2 }}
+{{- end }}
+{{- end }}
+{{- with (dig "extras" nil .)}}
+{{- if . }}
+extras:
+  {{- . | toYaml |  nindent 2 }}
 {{- end }}
 {{- end }}
 {{- end }}
