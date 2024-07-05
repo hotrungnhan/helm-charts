@@ -5,7 +5,7 @@
 {{- $deploymentName := .name }}
 
 ---
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $deploymentName }}
@@ -16,26 +16,29 @@ metadata:
   {{- . | nindent 2 }}
   {{- end}}
 spec:
-  template:
-    scaleTargetRef:
-      apiVersion: apps/v1
-      kind: Deployment
-      name: {{ $deploymentName }}
-    minReplicas: {{ $replicas.minReplicas }}
-    maxReplicas: {{ $replicas.maxReplicas }}
-    metrics:
-      {{- if $replicas.targetCPUUtilizationPercentage }}
-      - type: Resource
-        resource:
-          name: cpu
-          targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage  }}
-      {{- end }}
-      {{- if $replicas.targetMemoryUtilizationPercentage }}
-      - type: Resource
-        resource:
-          name: memory
-          targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage  }}
-      {{- end }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $deploymentName }}
+  minReplicas: {{ $replicas.minReplicas }}
+  maxReplicas: {{ $replicas.maxReplicas }}
+  metrics:
+    {{- if $replicas.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target: 
+          type: Utilization
+          averageUtilization: {{ $replicas.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if $replicas.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target: 
+          type: Utilization
+          averageUtilization: {{ $replicas.targetMemoryUtilizationPercentage }}
+    {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -45,7 +48,7 @@ spec:
 {{- $replicas := (include "template.replicas" (.replicas | default dict)| fromYaml)}}
 {{- if $replicas.autoscalingEnabled }}
 {{- $deploymentName := printf "%s-worker-%s" (include "application.fullname" $) (.name) }}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2 
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $deploymentName }}
@@ -56,25 +59,28 @@ metadata:
   {{- . | nindent 2 }}
   {{- end}}
 spec:
-  template: 
-    scaleTargetRef:
-      apiVersion: apps/v1
-      kind: Deployment
-      name: {{ $deploymentName }}
-    minReplicas: {{ $replicas.minReplicas }}
-    maxReplicas: {{ $replicas.maxReplicas }}
-    metrics:
-      {{- if $replicas.targetCPUUtilizationPercentage }}
-      - type: Resource
-        resource:
-          name: cpu
-          targetAverageUtilization: {{ $replicas.targetCPUUtilizationPercentage }}
-      {{- end }}
-      {{- if $replicas.targetMemoryUtilizationPercentage }}
-      - type: Resource
-        resource:
-          name: memory
-          targetAverageUtilization: {{ $replicas.targetMemoryUtilizationPercentage }}
-      {{- end }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $deploymentName }}
+  minReplicas: {{ $replicas.minReplicas }}
+  maxReplicas: {{ $replicas.maxReplicas }}
+  metrics:
+    {{- if $replicas.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target: 
+          type: Utilization
+          averageUtilization: {{ $replicas.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if $replicas.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target: 
+          type: Utilization
+          averageUtilization: {{ $replicas.targetMemoryUtilizationPercentage }}
+    {{- end }}
 {{- end }}
 {{- end }}
